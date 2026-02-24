@@ -211,6 +211,14 @@ async def argo_list_experiments(
     ),
 ) -> ToolOutput:
     """Get Argo Rollouts experiments."""
+    # Validate mutual exclusivity of namespace and all_namespaces
+    if (
+        isinstance(namespace, str)
+        and namespace
+        and isinstance(all_namespaces, bool)
+        and all_namespaces
+    ):
+        raise ValueError("namespace and all_namespaces are mutually exclusive")
     if rollout_name:
         cmd_parts = ["get", "experiments.argoproj.io", "-o", "json"]
         if all_namespaces:
@@ -261,6 +269,14 @@ async def argo_list_analysisruns(
     ),
 ) -> ToolOutput:
     """Get Argo Rollouts analysis runs."""
+    # Validate mutual exclusivity of namespace and all_namespaces
+    if (
+        isinstance(namespace, str)
+        and namespace
+        and isinstance(all_namespaces, bool)
+        and all_namespaces
+    ):
+        raise ValueError("namespace and all_namespaces are mutually exclusive")
     cmd_parts = ["get", "analysisruns.argoproj.io", "-o", "wide"]
     if all_namespaces:
         cmd_parts.append("-A")

@@ -27,6 +27,14 @@ async def helm_list_releases(
     ),
 ) -> ToolOutput:
     """List Helm releases."""
+    # Validate mutual exclusivity of namespace and all_namespaces
+    if (
+        isinstance(namespace, str)
+        and namespace
+        and isinstance(all_namespaces, bool)
+        and all_namespaces
+    ):
+        raise ValueError("namespace and all_namespaces are mutually exclusive")
     cmd = f"list {f'-n {namespace}' if namespace else ''} {'-A' if all_namespaces else ''}"
     return await run_helm_command(cmd)
 
