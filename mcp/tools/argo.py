@@ -204,14 +204,13 @@ async def argo_list_experiments(
         description="The name of the rollout to get experiments for (if not specified, gets all experiments)",
     ),
     namespace: Optional[str] = Field(
-        default="default", description="The namespace to get experiments from"
+        default=None, description="The namespace to get experiments from"
     ),
     all_namespaces: Optional[bool] = Field(
         default=False, description="Whether to get experiments from all namespaces"
     ),
 ) -> ToolOutput:
     """Get Argo Rollouts experiments."""
-    # Validate mutual exclusivity of namespace and all_namespaces
     if (
         isinstance(namespace, str)
         and namespace
@@ -262,14 +261,13 @@ async def argo_list_experiments(
 @mcp.tool(title="List Argo Analysis Runs", tags=["argo"], annotations={"readOnlyHint": True})
 async def argo_list_analysisruns(
     namespace: Optional[str] = Field(
-        default="default", description="The namespace to get analysis runs from"
+        default=None, description="The namespace to get analysis runs from"
     ),
     all_namespaces: Optional[bool] = Field(
         default=False, description="Whether to get analysis runs from all namespaces"
     ),
 ) -> ToolOutput:
     """Get Argo Rollouts analysis runs."""
-    # Validate mutual exclusivity of namespace and all_namespaces
     if (
         isinstance(namespace, str)
         and namespace

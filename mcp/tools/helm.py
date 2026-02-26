@@ -27,7 +27,6 @@ async def helm_list_releases(
     ),
 ) -> ToolOutput:
     """List Helm releases."""
-    # Validate mutual exclusivity of namespace and all_namespaces
     if (
         isinstance(namespace, str)
         and namespace
